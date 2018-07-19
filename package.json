@@ -1,0 +1,31 @@
+{
+  "name": "lionsfrance",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": " node ."
+  },
+  "author": "Julien Donque",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {
+    "angular": "^1.7.2",
+    "angular-animate": "^1.7.2",
+    "angular-aria": "^1.7.2",
+    "angular-chart.js": "^1.1.1",
+    "angular-material": "^1.1.10",
+    "angular-messages": "^1.7.2",
+    "angular-resource": "^1.7.2",
+    "angular-route": "^1.7.2",
+    "bluebird": "^3.5.1",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.3",
+    "json-2-csv": "^2.2.0",
+    "morgan": "^1.9.0",
+    "request": "^2.87.0",
+    "request-promise": "^4.2.2",
+    "selenium-webdriver": "~3.6.0",
+    "winston": "^3.0.0"
+  }
+}
