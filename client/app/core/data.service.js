@@ -1,5 +1,5 @@
 
-angular.module("statsApp.core", [])
+angular.module("statsApp.core")
     .factory("dataService", dataServiceFactory)
 
 dataServiceFactory.$inject= ['$http']

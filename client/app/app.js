@@ -1,15 +1,10 @@
 'use strict';
 
-angular.module("statsApp", ["ngRoute","ngResource", "ngMaterial","ui.router", "statsApp.home", "statsApp.core", "statsApp.menu"])
-    .config(['$stateProvider', function($stateProvider) {
-        var states = [
-            {
-                name:"home",
-                url:"/home",
-                component: "home"
-            }
-        ];
-        states.forEach(function(state){
+angular.module("statsApp", ["ngRoute","ngResource", "ngMaterial","ui.router","chart.js", "statsApp.core", "statsApp.menu", "statsApp.home","statsApp.global","statsApp.historique","statsApp.export"])
+    .config(['$stateProvider', 'states', function($stateProvider, states) {
+        states().forEach(function(state){
             $stateProvider.state(state);
         });
+
+        
     }]);

@@ -1,5 +1,5 @@
 
-angular.module("statsApp.menu", [])
+angular.module("statsApp.menu", ["statsApp.core"])
 .directive("menu", function(){
     return {
         restrict: "E",
@@ -9,24 +9,8 @@ angular.module("statsApp.menu", [])
 })
 .controller("menuCtrl", menuCtrl)
 
-menuCtrl.$inject = ["$scope", "dataService"];
-function menuCtrl($scope, dataService){
-    $scope.menuItems = [
-        {
-            name:"home",
-            state:"home",
-            label: "home"
-        },
-        {
-            name:"test2",
-            state:"about",
-            label: "test2"
-        },
-        {
-            name:"test3",
-            state:"state3",
-            label: "test3"
-        }
-    ];
-    $scope.selected = $scope.menuItems[0];
+menuCtrl.$inject = ["$scope", "states"];
+function menuCtrl($scope, states){
+    $scope.menuItems = states();
+    $scope.selected = 0;
 }
