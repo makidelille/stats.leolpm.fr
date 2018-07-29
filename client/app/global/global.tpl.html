@@ -1,24 +1,20 @@
 <div layout="col">
     <div class="left">
-
+        filter pane
     </div>
-    <div class="content" flex="grow" ng-if="initialized" >
+    <div class="content" flex="grow" ng-class="initialized ? '': 'loading'" >
         <!-- main content -->
-        <div layout="row">
-            <div flex="auto" layout="column">
-                <h1>répartition homme/femme</h1>
+        <div ng-if="initialized">
+            <div flex="auto">
+                <h1 class="md-display-1 text-center" >répartition homme/femme</h1>
                 <canvas class="chart chart-pie" chart-data="hommeFemme.data" chart-labels="hommeFemme.labels"></canvas> 
             </div>
+            <hr width="80%">
             <div flex="auto">
-                <h1>répartition des ages</h1>
+                <h1 class="md-display-1 text-center">répartition des ages</h1>
                 <canvas class="chart chart-bar" chart-data="ages.data" chart-labels="ages.labels"></canvas> 
             </div>
         </div>
-        <div layout="row">
-        
-        </div>
-
-
     </div>
     <div class="right">
         chiffre sympas:

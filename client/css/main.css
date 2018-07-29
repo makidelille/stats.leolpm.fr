@@ -1,0 +1,43 @@
+hr{
+    margin: 15px auto; 
+}
+.text-center{
+    text-align: center
+}
+
+.content{
+    padding: 5px;
+    border: 1px solid green;
+}
+
+.left{
+    padding: 5px;
+    border-right: 1px solid red;
+    min-width: 20%;
+}
+
+.right{
+    padding: 5px;
+    border-left: 1px solid blue;
+    min-width: 20%;
+}
+
+.loading::after{
+    content: "chargement...";
+    text-align: center;
+}
+.loading{
+    animation: loading 2s both 0s infinite linear;
+    border: 1px solid yellow;
+    text-align: center;
+
+}
+
+@keyframes loading{
+    from{
+        transform: rotateY(0);
+    }
+    to{
+        transform: rotateY(360deg);
+    }
+}
