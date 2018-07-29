@@ -1,6 +1,18 @@
 <div layout="col">
     <div class="left">
-        filter pane
+        <md-input-container ng-repeat="criteria in searchCriteria" layout="row">
+            <label>{{ criteria }}</label>
+            <md-select ng-model="search[criteria]"
+                        name="{{ criteria }}"
+                        placeholder="selectionner un {{criteria}}"
+                        multiple>
+                <md-optgroup label="{{criteria}}">
+                    <md-option ng-repeat="value in filterValues[criteria] | filter:searchTerm" ng-value="value">{{value}}</option>
+                </md-optgroup>
+            </md-select>
+        </md-input-container>
+        <md-button ng-click="search = {}"> reset !</md-button>
+        <md-button ng-click="refresh()"> go !</md-button>
     </div>
     <div class="content" flex="grow" ng-class="initialized ? '': 'loading'" >
         <!-- main content -->
@@ -17,11 +29,14 @@
         </div>
     </div>
     <div class="right">
-        chiffre sympas:
-        age:
-        moyenne:
-        max:
-        min:
-        parité h/f: %
+        <h1>infos:</h1>
+        <ul>
+            <li>Nombre de club: {{ clubsCount}}</li>
+            <li>Nombre de membres: {{ membresCount}}</li>
+            <li>Age moyen: {{ ages.avg}}</li>
+            <li>Age min: {{ ages.min}}</li>
+            <li>Age max: {{ ages.max}}</li>
+            <li>Nombre d'homme par femme {{ hommeFemme.avg}}</li>
+        </ul>
     </div>
 </div>
