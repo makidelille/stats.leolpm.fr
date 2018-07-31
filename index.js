@@ -8,6 +8,7 @@ const logger = require("morgan");
 const port = config.server.port;
 const fs = require("fs");
 const path = require("path");
+const api = require("./api/api");
 let httpserver;
 
 function buildApp(){
@@ -41,6 +42,7 @@ function buildApp(){
 
     app.use(express.static(path.join(__dirname, "client")));
     app.use(express.static(path.join(__dirname, "node_modules")));
+    app.use('/api', api);
 
     app.use((req, res) => {
         return res.status(404).json(`${req.originalUrl} doesn't exist`);

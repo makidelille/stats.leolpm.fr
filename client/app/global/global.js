@@ -32,26 +32,17 @@ function globalCtrl($scope,$element, $q, $filter,  dataService){
         labels: [],
     };
 
-    $scope.filterValues= {
-        district:[],
-        club:[],
-        cp: [],
-        ville:[]
-    };
+    $scope.filterValues= {};
 
-    dataService.getLatest().then(function(data){
+    dataService.get.tree().then(function(tree){
+        $scope.filterValues = tree;
+        return dataService.get.latest()
+    }).then(function(data){
         $scope.data = data;
-        //district, cp, club
-        data.forEach(element => {
-            for(var index in $scope.searchCriteria){
-                var key = $scope.searchCriteria[index];
-                if($scope.filterValues[key].indexOf(element[key]) === -1){
-                    $scope.filterValues[key].push(element[key]);
-                }
-            }
-        });
         return display(data);
-    })
+    });
+
+    
 
     function refresh(){
         for(var key in $scope.search){
@@ -60,10 +51,10 @@ function globalCtrl($scope,$element, $q, $filter,  dataService){
             }
         }
         var data = $filter('filter')($scope.data, $scope.search, function(actual, expected){
-            return expected.indexOf(actual) !== -1;
+            return actual.length && expected.indexOf(actual) !== -1;
         });
         $scope.initialized = false;
-        display(data);
+        return display(data);
 
     }
     $scope.refresh = refresh;
@@ -88,10 +79,9 @@ function globalCtrl($scope,$element, $q, $filter,  dataService){
             };
 
             var temp = [];
-            data.forEach(element => {
-                var stats = element.stats;
+            data.forEach(stats => {
                 
-                scope.membresCount += element.membres.length;
+                scope.membresCount += stats.membresCount;
                 scope.clubsCount++;
                 scope.hommeFemme.data[0] += stats.mCount;
                 scope.hommeFemme.data[1] += stats.fCount;

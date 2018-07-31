@@ -1,13 +1,33 @@
 <div layout="col">
     <div class="left">
-        <md-input-container ng-repeat="criteria in searchCriteria" layout="row">
-            <label>{{ criteria }}</label>
-            <md-select ng-model="search[criteria]"
-                        name="{{ criteria }}"
-                        placeholder="selectionner un {{criteria}}"
+        <md-input-container layout="row">
+            <label>district</label>
+            <md-select ng-model="search.district"
+                        name="district"
+                        placeholder="selectionner un district">
+                <md-optgroup label="district">
+                    <md-option ng-repeat="(key, value) in filterValues" ng-value="key">{{key}}</option>
+                </md-optgroup>
+            </md-select>
+        </md-input-container>
+        <md-input-container layout="row">
+            <label>ville</label>
+            <md-select ng-model="search.ville"
+                        name="ville"
+                        placeholder="selectionner une ville">
+                <md-optgroup label="ville">
+                    <md-option ng-repeat="(key, value) in filterValues[search.district]" ng-value="key">{{key}}</option>
+                </md-optgroup>
+            </md-select>
+        </md-input-container>
+        <md-input-container layout="row">
+            <label>club</label>
+            <md-select ng-model="search.club"
+                        name="club"
+                        placeholder="selectionner un club"
                         multiple>
-                <md-optgroup label="{{criteria}}">
-                    <md-option ng-repeat="value in filterValues[criteria] | filter:searchTerm" ng-value="value">{{value}}</option>
+                <md-optgroup label="club">
+                    <md-option ng-repeat="value in filterValues[search.district][search.ville]" ng-value="value">{{value}}</option>
                 </md-optgroup>
             </md-select>
         </md-input-container>
