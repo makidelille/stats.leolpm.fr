@@ -5,8 +5,8 @@ const data = require("../../core/db");
 
 router.get("/", function(req, res, next) {
     let version = req.query.version;
-    if(version === undefined || version == "latest"){
-        version = "latest"; //TODO latest
+    if(version === undefined){
+        version = "latest"
     }
 
     if(typeof version != 'string'){
@@ -16,19 +16,18 @@ router.get("/", function(req, res, next) {
     if(!version.length){
         return next({status: 400, msg: "no version specified"});
     }
-  
-    return data.getClubs(version + ".json").then((clubs) => {
-        let json = clubs.map(data.filterStats);
-
-        return res.json(json);
-    }).catch(err => {
-      console.error(err);
-      if(err.code === "ENOENT"){
-          return next({status: 404, msg: "version doesn't exist"});
-      }  else{
-          return next({status: 500, msg: "Internal serveur error"});
-      }
-    });
+    return data.getClubs(version)
+        .then((clubs) => {
+            let json = clubs.map(data.filterStats);
+            return res.json(json);
+        }).catch(err => {
+        console.error(err);
+        if(err.code === "ENOENT"){
+            return next({status: 404, msg: "version doesn't exist"});
+        }  else{
+            return next({status: 500, msg: "Internal serveur error"});
+        }
+        });
 
 });
 

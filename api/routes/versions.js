@@ -3,9 +3,7 @@ var router = express.Router();
 var data = require("../../core/db");
 
 router.get("/", function(req, res, next) {
-    return data.getVersions().then((files) => {
-        return res.json(files.map(file => file.replace(".json", "")));
-    });
+    return data.getVersions().then(files => res.json(files));
 });
 
 

@@ -3,7 +3,20 @@ var router = express.Router();
 var data = require("../../core/db");
 
 router.get("/", function(req, res, next) {
-    return data.getClubs().then((clubs) => {
+    let version = req.query.version;
+    if(version === undefined){
+        version = "latest";
+    }
+
+    if(typeof version != 'string'){
+        return next({status: 400, msg: "Invalid version format"});
+    }
+
+    if(!version.length){
+        return next({status: 400, msg: "no version specified"});
+    }
+
+    return data.getClubs(version).then((clubs) => {
         let tree = {}
         clubs.forEach(clubInfos => {
             let district = clubInfos.district;

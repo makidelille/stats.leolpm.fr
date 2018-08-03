@@ -34,15 +34,26 @@ function globalCtrl($scope,$element, $q, $filter,  dataService){
 
     $scope.filterValues= {};
 
-    dataService.get.tree().then(function(tree){
-        $scope.filterValues = tree;
-        return dataService.get.latest()
-    }).then(function(data){
-        $scope.data = data;
-        return display(data);
+    $scope.versions = [];
+    $scope.version = 'latest';
+    dataService.get.versions().then(function(versions){
+        $scope.versions = versions.concat('latest');
+        return loadVersion();
     });
 
-    
+    function loadVersion(){
+        console.log("load version:", $scope.version);
+        $scope.initialized = false;
+        return dataService.get.tree($scope.version).then(function(tree){
+            $scope.filterValues = tree;
+            return dataService.get.latest($scope.version);
+        }).then(function(data){
+            $scope.data = data;
+            return display(data);
+        });
+    }
+
+    $scope.loadVersion =loadVersion;
 
     function refresh(){
         for(var key in $scope.search){

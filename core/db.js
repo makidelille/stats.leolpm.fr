@@ -5,8 +5,14 @@ const path = require("path");
 const dataFolder = path.resolve(__dirname, "../data/");
 
 function getClubs(version){
+    if(version === undefined || version  === 'latest'){
+        return getVersions()
+            .then(versions => versions[versions.length - 1])
+            .then(getClubs);
+    }
+
     return new Bluebird((resolve, reject) =>  {
-        let file = path.resolve(dataFolder, version);
+        let file = path.resolve(dataFolder, version + ".json");
         fs.readFile(file, (err, data) => {
             if(err) return reject(err);
             try{
@@ -16,14 +22,14 @@ function getClubs(version){
                 return resolve([]);
             }
         });
-    });    
+    });   
 }
 
 function getVersions(){
     return new Bluebird((resolve, reject) => {
         fs.readdir(dataFolder, (err, files) => {
             if(err) return reject(err);
-            return resolve(files);
+            return resolve(files.map(file => file.replace(".json", "")));
         });
 
     })

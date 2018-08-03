@@ -4,7 +4,8 @@
             <label>district</label>
             <md-select ng-model="search.district"
                         name="district"
-                        placeholder="selectionner un district">
+                        placeholder="selectionner un district"
+                        ng-change="refresh()">
                 <md-optgroup label="district">
                     <md-option ng-repeat="(key, value) in filterValues" ng-value="key">{{key}}</option>
                 </md-optgroup>
@@ -14,7 +15,9 @@
             <label>ville</label>
             <md-select ng-model="search.ville"
                         name="ville"
-                        placeholder="selectionner une ville">
+                        placeholder="selectionner une ville"
+                        ng-change="refresh()"
+                        ng-disabled="!search.district">
                 <md-optgroup label="ville">
                     <md-option ng-repeat="(key, value) in filterValues[search.district]" ng-value="key">{{key}}</option>
                 </md-optgroup>
@@ -25,14 +28,15 @@
             <md-select ng-model="search.club"
                         name="club"
                         placeholder="selectionner un club"
+                        ng-change="refresh()"
+                        ng-disabled="!search.ville"
                         multiple>
                 <md-optgroup label="club">
                     <md-option ng-repeat="value in filterValues[search.district][search.ville]" ng-value="value">{{value}}</option>
                 </md-optgroup>
             </md-select>
         </md-input-container>
-        <md-button ng-click="search = {}"> reset !</md-button>
-        <md-button ng-click="refresh()"> go !</md-button>
+        <md-button ng-click="search = {}; refresh()"> RAZ</md-button>
     </div>
     <div class="content" flex="grow" ng-class="initialized ? '': 'loading'" >
         <!-- main content -->
@@ -49,6 +53,12 @@
         </div>
     </div>
     <div class="right">
+        <h1>Version :</h1>
+        <md-select ng-model="version" ng-change="loadVersion()">
+            <md-option ng-repeat="value in versions" ng-value="value">{{value}}</option>
+        </md-select>
+
+
         <h1>infos:</h1>
         <ul>
             <li>Nombre de club: {{ clubsCount}}</li>
