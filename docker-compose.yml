@@ -1,13 +1,21 @@
 version: '3.1'
 services:
   app:
-    image: stats.leolpm.fr
+    image: makidelille/stats.leolpm.fr
     volumes:
-      - ./data:/data
+      - ./data:./data
     environment:
       - VIRTUAL_HOST=
       - VIRTUAL_PORT=3000
+      - LETSENCRYPT_HOST=
+      - LETSENCRYPT_EMAIL=
       - NODE_ENV=production
+    deploy:
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 512M
+    hostname: 
     networks:
       - proxy-net
     

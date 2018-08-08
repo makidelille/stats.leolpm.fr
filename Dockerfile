@@ -1,7 +1,7 @@
 FROM node:carbon
 
 WORKDIR /usr/src/app
-RUN mkdir /data
+RUN mkdir data
 
 COPY package.json .
 RUN npm install --production
