@@ -46,7 +46,7 @@ function globalCtrl($scope,$element, $q, $filter,  dataService){
         $scope.initialized = false;
         return dataService.get.tree($scope.version).then(function(tree){
             $scope.filterValues = tree;
-            return dataService.get.latest($scope.version);
+            return dataService.get.stats($scope.version);
         }).then(function(data){
             $scope.data = data;
             return display(data);

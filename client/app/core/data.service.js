@@ -7,10 +7,25 @@ function dataServiceFactory($http, $q){
 
     var getFunctions = {};
     
-    getFunctions.latest = function(version){
+    getFunctions.stats = function(version){
         return $http.get('/api/stats', {
             params: {
                 version: version || 'latest' 
+            }
+        })
+            .then(function(response){
+                // stats caluclation
+                return response.data;
+            });
+    }
+
+    getFunctions.hist = function(filter){
+        filter = filter || {};
+        return $http.get('/api/stats/hist', {
+            params: {
+                district: filter.district,
+                ville: filter.ville,
+                club: filter.club
             }
         })
             .then(function(response){

@@ -1,0 +1,16 @@
+version: '3.1'
+services:
+  app:
+    image: stats.leolpm.fr
+    volumes:
+      - ./data:/data
+    environment:
+      - VIRTUAL_HOST=
+      - VIRTUAL_PORT=3000
+      - NODE_ENV=production
+    networks:
+      - proxy-net
+    
+networks:
+  proxy-net:
+    external: true
