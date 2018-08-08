@@ -94,8 +94,10 @@ function filterJoinStats(clubs){
     let ageMoyen = 0, ageMax = 0, ageMin = 0;
     let parite = 0;
     let membresCount = 0;
+    let clubsCount = 0;
     clubs.forEach(club => {
         club.membres.forEach(function(membre){
+            clubsCount++;
             membresCount++;
             switch(membre.sexe){
                 case "M": 

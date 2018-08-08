@@ -3,40 +3,60 @@
     <div class="content" flex="grow" ng-class="initialized ? '': 'loading'" >
         <!-- main content -->
         <div ng-if="initialized">
-            <md-input-container layout="row">
-                <label>district</label>
-                <md-select ng-model="search.district"
-                            name="district"
-                            placeholder="selectionner un district">
-                    <md-optgroup label="district">
-                        <md-option ng-repeat="(key, value) in filterValues" ng-value="key">{{key}}</option>
-                    </md-optgroup>
-                </md-select>
-            </md-input-container>
-            <md-input-container layout="row">
-                <label>ville</label>
-                <md-select ng-model="search.ville"
-                            name="ville"
-                            placeholder="selectionner une ville"
-                            ng-disabled="!search.district">
-                    <md-optgroup label="ville">
-                        <md-option ng-repeat="(key, value) in filterValues[search.district]" ng-value="key">{{key}}</option>
-                    </md-optgroup>
-                </md-select>
-            </md-input-container>
-            <md-input-container layout="row">
-                <label>club</label>
-                <md-select ng-model="search.club"
-                            name="club"
-                            placeholder="selectionner un club"
-                            ng-disabled="!search.ville">
-                    <md-optgroup label="club">
-                        <md-option ng-repeat="value in filterValues[search.district][search.ville]" ng-value="value">{{value}}</option>
-                    </md-optgroup>
-                </md-select>
-            </md-input-container>
-            <md-button ng-click="search = {}">RAZ</md-button>
-            <md-button ng-click="getHist()">GO</md-button>
+            <div ng-if="!filterSelected">
+                <md-input-container layout="row">
+                    <label>district</label>
+                    <md-select ng-model="search.district"
+                                name="district"
+                                placeholder="selectionner un district">
+                        <md-optgroup label="district">
+                            <md-option ng-repeat="(key, value) in filterValues" ng-value="key">{{key}}</option>
+                        </md-optgroup>
+                    </md-select>
+                </md-input-container>
+                <md-input-container layout="row">
+                    <label>ville</label>
+                    <md-select ng-model="search.ville"
+                                name="ville"
+                                placeholder="selectionner une ville"
+                                ng-disabled="!search.district">
+                        <md-optgroup label="ville">
+                            <md-option ng-repeat="(key, value) in filterValues[search.district]" ng-value="key">{{key}}</option>
+                        </md-optgroup>
+                    </md-select>
+                </md-input-container>
+                <md-input-container layout="row">
+                    <label>club</label>
+                    <md-select ng-model="search.club"
+                                name="club"
+                                placeholder="selectionner un club"
+                                ng-disabled="!search.ville">
+                        <md-optgroup label="club">
+                            <md-option ng-repeat="value in filterValues[search.district][search.ville]" ng-value="value">{{value}}</option>
+                        </md-optgroup>
+                    </md-select>
+                </md-input-container>
+                <md-button ng-click="search = {}">RAZ</md-button>
+                <md-button ng-click="getHist()">GO</md-button>
+            </div>
+
+            <div ng-if="filterSelected">
+                    <div flex="auto">
+                            <h1 class="md-display-1 text-center" >Evolution des effectifs</h1>
+                            <canvas class="chart chart-bar" chart-data="data.membresCount" chart-labels="labels"></canvas> 
+                    </div>
+                    <hr width="80%">
+
+                    <div flex="auto">
+                            <h1 class="md-display-1 text-center" >Evolution des ages</h1>
+                            <canvas class="chart chart-line" chart-data="[data.ageMin, data.ageMax, data.ageMoyen]" chart-series="['ageMin', 'ageMax', 'ageMoyen']" chart-labels="labels"></canvas> 
+                    </div>
+                    <hr width="80%">
+
+
+
+            </div>
+
         </div>
     </div>
 </div>
