@@ -3,7 +3,7 @@ services:
   app:
     image: makidelille/stats.leolpm.fr
     volumes:
-      - ./data:./data
+      - ./data:/usr/src/app/data
     environment:
       - VIRTUAL_HOST=
       - VIRTUAL_PORT=3000
